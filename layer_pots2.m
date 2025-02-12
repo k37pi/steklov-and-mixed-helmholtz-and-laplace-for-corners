@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 function [A,B] = layer_pots2(mu,Tau,Tau1,T,T1,dTau,Xtau,Xt,Ytau,Yt,dXtau,dXt,dYtau,dYt,d2Xt,d2Yt)
 N = size(Tau,1);
 %% R, X for all pairs t, tau
