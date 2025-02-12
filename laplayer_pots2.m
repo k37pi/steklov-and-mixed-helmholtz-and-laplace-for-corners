@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 function [A,B] = laplayer_pots2(Tau,Tau1,T,T1,dTau,Xtau,Xt,Ytau,Yt,dXtau,dXt,dYtau,dYt,d2Xt,d2Yt)
 % Tau = Taus{pp}; Tau1 = Taus1{pp}; T = Ts{pp}; T1 = Ts1{pp}; dTau = dTaus{pp};
 
