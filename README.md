@@ -21,4 +21,4 @@ An additional input can be given to view different eigenfunctions in the *eigenf
 5. **efn_in_corners2.m** : this script reconstructs eigenfunctions, given eigendensities in the plane.
 
 The garded mesh scheme is as described in section 3.5 of *Inverse Acoustic and Electromagnetic Scattering Theory, 3rd edition* by Colton and Kress. 
-This project is part of work on a manuscript in preparation titled *The spectrum of the Steklov-Helmholtz operator* by Nilima Nigam, Kshitij Patil and Weiran Sun.  
+This project is part of work on a manuscript in preparation titled *The spectrum of the Steklov-Helmholtz operator* by Nilima Nigam, Kshitij Patil and Weiran Sun at Simon Fraser University, Canada.  
