@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 % This function takes the curve name and returns
 % the parameterization x, its derivatie dx and second derivative
 % d2x
