@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 function [len,evs,eden,evecs,A,B] = stek_lap_corners(curve_name,curve_params,N,M,p,al,bt,len1,tol,Hom,rho_wt,eigsk,neumann_pieces,dirichlet_pieces)
 
 % points_per_piece = 2*N/pieces;
