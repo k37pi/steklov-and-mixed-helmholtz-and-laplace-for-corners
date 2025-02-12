@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 run corner_inputs.m
 
 %% solvers ----------
