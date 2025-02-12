@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 function [A_tilde,B_tilde] = ...
     laptalking_pots(dTau,x_in,dXtau_in,dYtau_in,x_out,dXt_out,dYt_out)
 
