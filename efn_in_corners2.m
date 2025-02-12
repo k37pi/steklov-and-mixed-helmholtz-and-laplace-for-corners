@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 function [evec_in,X,Y] = efn_in_corners2(fixes,Co,indices,points_per_piece,dTaus,eden,x,dx,points_inside,mu,M,LH)
 m = M;
 evec_in = cell(length(fixes),1);
