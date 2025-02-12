@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 clear; close all; 
 set(0,'defaultTextInterpreter','latex'); 
 set(0,'defaultAxesFontSize',20)
