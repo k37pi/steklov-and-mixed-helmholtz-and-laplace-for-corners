@@ -1,3 +1,4 @@
+% Author: Kshitij Patil, kap15@sfu.ca %
 function [A_tilde,B_tilde] = ...
     talking_pots(mu,dTau,x_in,dXtau_in,dYtau_in,x_out,dXt_out,dYt_out)
 
