@@ -18,4 +18,6 @@ An additional input can be given to view different eigenfunctions in the *eigenf
 
 4. **lip_curve.m** : this script constructs the boundary curve taking inputs from corner_inputs.m. New curves can be added here. 
 
-5. **efn_in_corners2.m** : this script reconstructs eigenfunctions, given eigendensities in the plane. 
+5. **efn_in_corners2.m** : this script reconstructs eigenfunctions, given eigendensities in the plane.
+
+The garded mesh scheme is as described in section 3.5 of *Inverse Acoustic and Electromagnetic Scattering Theory, 3rd edition* by Colton and Kress. 
