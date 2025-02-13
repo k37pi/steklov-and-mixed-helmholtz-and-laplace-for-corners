@@ -1,4 +1,4 @@
-% Author: Kshitij Patil, kap15@sfu.ca %
+%Author: Kshitij Patil, kap15@sfu.ca%
 % This function takes the curve name and returns
 % the parameterization x, its derivatie dx and second derivative
 % d2x
@@ -385,6 +385,60 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             end
             d2x1 = [0*t;0*t];
             x1 = x1(:,1:end-1); dx1 = dx1(:,1:end-1); d2x1 = d2x1(:,1:end-1);
+            
+            if l == 1
+            x = x1; dx = dx1; d2x = d2x1;
+            else
+            x = [x,x1]; dx = [dx,dx1]; d2x = [d2x,d2x1];
+            end
+
+            end
+
+            % SHOULD MATCH len
+            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
+            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))    
+        case 'polygon'
+            pts = varargin{1}; 
+            pieces = size(pts,1);
+
+            pts = [pts; pts(1,:)];
+            lens = sqrt(sum(diff(pts).^2,2));
+            len = sum(lens);            
+            ratios = lens/len;
+            % if sum(ratios)~=1
+            % % ratios(ratios==min(ratios)) = ratios(ratios==min(ratios))+1-sum(ratios); 
+            % disp("non proper distribution of points")
+            % end
+            points_per_piece = tp/pieces+zeros(1,pieces);%ratios*tp;
+            
+            % indices_end = zeros(pieces,2); 
+            % indices_begin = [1 points_per_piece(1:end-1)+1];
+            indices_end = cumsum(points_per_piece);
+            indices_begin = [1 indices_end(1:end-1)+1];
+            % indices_end = (1:pieces)*points_per_piece;
+            % indices_begin = (0:pieces-1)*points_per_piece+1;
+            indices = [indices_begin',indices_end'];
+
+            dts = (b-a)./(points_per_piece); %cutoff = 0.1; 
+            ts = arrayfun(@(x) a:x:b,dts,'UniformOutput',false); % 2N+1 points
+            ts1 = ts; ts = cellfun(@(x) w(x),ts1,'UniformOutput',false);
+            Dws = cellfun(@(x)dw(x),ts1,'UniformOutput',false);%dw(t1); 
+
+            for l = 1:pieces
+            sp = pts(l,:); ep = pts(l+1,:);     
+            t = ts{l};
+            % if rem(l,2) == 1
+            % [xh,mh] = horverline(t,sp(1),ep(1));
+            % x1 = [xh;ep(2)+0*t];
+            % dx1 = [mh+0*t;0*t];
+            % else
+            % [yv,mv] = horverline(t,sp(2),ep(2));
+            % x1 = [ep(1)+0*t;yv];
+            % dx1 = [0*t;mv+0*t];
+            % end
+            % 
+            % d2x1 = [0*t;0*t];
+            [x1, dx1, d2x1] = slantline(t,sp(1),ep(1),sp(2),ep(2)); 
             
             if l == 1
             x = x1; dx = dx1; d2x = d2x1;
