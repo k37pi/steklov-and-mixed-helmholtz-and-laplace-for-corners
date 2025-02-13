@@ -55,7 +55,7 @@ ta1 = 2; ta2 = 3/2; tb2 = sqrt(3)/2+1;
 %as required. Make sure there are no self intersections. A sample "poly_points.csv"%
 %file is included here, which is my attempt at making a star, see polygon sample 2.%
 %Note that there are some negative eigenavlues for Steklov-Laplace, this is possibly %
-%due to ill-conditioned matrices, and is work under progress.              %
+%due to ill-conditioned matrices (possibly due to the sharp corners) and is work under progress.%
 % Ensure that 2*N is divisible by number of boundary pieces.              %
 
 % sample curve_params 
