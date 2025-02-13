@@ -6,7 +6,7 @@ This Steklov-Helmholtz (and Laplace) code for corners includes 14 files. The 2 m
    - *poly_points.csv* is a sample of my attempt at making a star.
  
 2. **SH_corners.m** : This script uses inputs from **corner_inputs.m** and solves the Steklov eigenvalue problems (Helmholtz and Laplace). 
-An additional input can be given to view different eigenfunctions in the *eigenfunction plots* section. 
+An additional input can be given to view different eigenfunctions in the *eigenfunction plots* section. Simply run this script after setting inputs in **corner_inputs.m**.
 
 **The rest of the scripts are helper scripts and should not be edited.**
 
