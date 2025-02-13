@@ -4,7 +4,7 @@ set(0,'defaultTextInterpreter','latex');
 set(0,'defaultAxesFontSize',20)
 set(0, 'DefaultLineLineWidth', 2);
 curves_list = ["semicircle";"rectangle";"tear";"L";...
-                "tri";"sector";"arc";"jeon2"];
+                "tri";"sector";"polygon";"arc";"jeon2"];
 
 %% ---------------------curve and point selection --------------------------
 % ----------- All inputs are to  be given in this block -------------------%
@@ -18,6 +18,7 @@ mu = 2;sqrt(pi);
 % curves_list contains the names of curves currently implemented           %
 % curve_number chooses the curve                                           % 
 % 1 = semicircle, 2 = rectangle, 3 = tear, 4 = L, 5 = triangle, 6 = sector %
+% 7 = polygon                                                              %
 % additional curves can be added in the "lip_cruve.m" file.                %
 curve_number = 1;
 curve_name = curves_list(curve_number); curve_name = lower(curve_name);
@@ -44,12 +45,25 @@ a1 = 1; b1 = 1; a2 = 1; b2 = 1;
 % (1,1) --> (ta1,1) --> (ta2,tb2)
 ta1 = 2; ta2 = 3/2; tb2 = sqrt(3)/2+1;
 
+% polygon needs an input of any number of points [x1 y1; x2 y2;...; xn yn]%
+%in sample 1 below, there are 6 points. The polygon will be constructed as%
+%(1,1) --> (2,2) --> (2,3) --> (1,3) --> (0,2) --> (0,1) --> (1,1)        %
+% only need to supply distinct points. There is a graphical input script  %
+%called "polygon_points_clicker.m". Running it will open an empty figure. %
+%click points on this figure to trace your polygon. Then click enter.     %
+%these points are stored in a csv called "poly_points.csv". Change filename%
+%as required. Make sure there are no self intersections. A sample "poly_points.csv"%
+%file is included here, which is my attempt at making a star, see polygon sample 2.%
+
 % sample curve_params 
 curve_params = disk_r; % semi-circle
 % curve_params = [l1 l2]; % square of side 1
 % curve_params = [a1 b1 a2 b2]; % L shape 
 % curve_params = [ta1 ta2 tb2]; % triangle
 % curve_params = [disk_r,theta]; % sector
+% curve_params = [1 1;2 2; 2 3; 1 3; 0 2; 0 1]; % polygon sample 1
+% curve_params = readmatrix("poly_points.csv"); % polygon sample 2
+
 
 % set different boundary conditions for different boundary pieces 
 neumann_pieces = [2]; % neumann BC on 2nd boundary
