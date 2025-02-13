@@ -54,6 +54,7 @@ ta1 = 2; ta2 = 3/2; tb2 = sqrt(3)/2+1;
 %these points are stored in a csv called "poly_points.csv". Change filename%
 %as required. Make sure there are no self intersections. A sample "poly_points.csv"%
 %file is included here, which is my attempt at making a star, see polygon sample 2.%
+%Ensure that 2*N is divisible by number of boundary pieces.              %
 
 % sample curve_params 
 curve_params = disk_r; % semi-circle
