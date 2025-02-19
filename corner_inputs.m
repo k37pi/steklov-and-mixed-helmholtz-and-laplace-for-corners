@@ -4,7 +4,7 @@ set(0,'defaultTextInterpreter','latex');
 set(0,'defaultAxesFontSize',20)
 set(0, 'DefaultLineLineWidth', 2);
 curves_list = ["semicircle";"rectangle";"tear";"L";...
-                "tri";"sector";"polygon";"arc";"jeon2"];
+                "tri";"sector";"polygon";"regpoly";"arc";"jeon2"];
 
 %% ---------------------curve and point selection --------------------------
 % ----------- All inputs are to  be given in this block -------------------%
@@ -18,7 +18,7 @@ mu = 2;sqrt(pi);
 % curves_list contains the names of curves currently implemented           %
 % curve_number chooses the curve                                           % 
 % 1 = semicircle, 2 = rectangle, 3 = tear, 4 = L, 5 = triangle, 6 = sector %
-% 7 = polygon                                                              %
+% 7 = polygon, 8 = regular polygon                                         %
 % additional curves can be added in the "lip_cruve.m" file.                %
 curve_number = 1;
 curve_name = curves_list(curve_number); curve_name = lower(curve_name);
@@ -58,6 +58,9 @@ ta1 = 2; ta2 = 3/2; tb2 = sqrt(3)/2+1;
 %due to ill-conditioned matrices (possibly due to the sharp corners) and is work under progress.%
 % Ensure that 2*N is divisible by number of boundary pieces.              %
 
+%regular polygon needs to inputs, number of sides and side length%
+reg_sides = 5; reg_len = 1;
+
 % sample curve_params 
 curve_params = disk_r; % semi-circle
 % curve_params = [l1 l2]; % square of side 1
@@ -66,7 +69,7 @@ curve_params = disk_r; % semi-circle
 % curve_params = [disk_r,theta]; % sector
 % curve_params = [1 1;2 2; 2 3; 1 3; 0 2; 0 1]; % polygon sample 1
 % curve_params = readmatrix("poly_points.csv"); % polygon sample 2
-
+% curve_params = [reg_sides reg_len]; % regular polygon, pentagon of side length 1
 
 % set different boundary conditions for different boundary pieces 
 neumann_pieces = [2]; % neumann BC on 2nd boundary
