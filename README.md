@@ -1,7 +1,7 @@
 ## Steklov (and mixed) Helmholtz and Laplace eigenvalue problem for piewcewise smooth domains with corners
 This Steklov-Helmholtz (and Laplace) code for corners includes 14 files. The 2 main files to use are listed in items 1 and 2.
 
-1. **corner_inputs.m** : The user selects the number of quadrature points, wave number, domain (7 available) and the polynomial mesh degree.
+1. **corner_inputs.m** : The user selects the number of quadrature points, wave number, domain (8 available) and the polynomial mesh degree.
    - *polygon_points_clicker.m* is a graphical input script to create a polygon by clicking points on as empty figure.
    - *poly_points.csv* is a sample of my attempt at making a star.
  
