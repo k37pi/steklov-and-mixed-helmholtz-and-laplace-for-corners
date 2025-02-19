@@ -44,10 +44,19 @@ inds = [inds1; inds2];
 evs_sl(inds) = [];
 eden_sl = eden_sl(:,setdiff(1:(2*N-length(remove)),inds));
 evecs_sl = evecs_sl(:,setdiff(1:(2*N-length(remove)),inds));
-end
-evs_sh(abs(evs_sh) > 1e4) = [];
-evs_sl(abs(evs_sl) > 1e4) = [];
+else
 
+inds = find(abs(evs_sh)> 1e4);
+evs_sh(inds) = [];
+eden_sh = eden_sh(:,setdiff(1:(2*N-length(remove)),inds));
+evecs_sh = evecs_sh(:,setdiff(1:(2*N-length(remove)),inds));
+
+evs_sh(abs(evs_sh) > 1e4) = [];
+inds = find(abs(evs_sl)> 1e4);
+evs_sl(inds) = [];
+eden_sl = eden_sl(:,setdiff(1:(2*N-length(remove)),inds));
+evecs_sl = evecs_sl(:,setdiff(1:(2*N-length(remove)),inds));
+end
 %% eigenvalue plots ------ 
 km = min([N/2,length(evs_sh),length(evs_sl)]);
 k = 1:km; % which evs you want to see ?
