@@ -8,7 +8,7 @@ This Steklov-Helmholtz (and Laplace) code for corners includes 14 files. The 2 m
 2. **SH_corners.m** : This script uses inputs from **corner_inputs.m** and solves the Steklov eigenvalue problems (Helmholtz and Laplace). 
 An additional input can be given to view different eigenfunctions in the *eigenfunction plots* section. Simply run this script after setting inputs in **corner_inputs.m**.
 
-**The rest of the scripts are helper scripts and should not be edited.**
+**The rest of the scripts are helper scripts and should not be edited unless you know what to change. New curves can be appended in Point 4.**
 
 3. 6 files (3 pairs), are such that there are two files of the same type for Helmholtz and Laplace equations. 
    - **stek_helm_corners.m** and **stek_lap_corners.m**, are the solvers that are called in **SH_corners.m**. In these scripts, 
