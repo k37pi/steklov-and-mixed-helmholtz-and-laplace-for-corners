@@ -83,9 +83,6 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             % d2x = -x;
             % d2x(:,t >= pi) = zeros(2,length(t(t >= pi)));
             len = (pi+2)*r;
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))
         case 'arc'
             % total_bdry = pi+2;
             % p1 = pi/total_bdry ~ 0.611 ~ 0.6
@@ -132,9 +129,6 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             % d2x = -x;
             % d2x(:,t >= pi) = zeros(2,length(t(t >= pi)));
             len = pi*r;
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))
         case 'sector'
             % total_bdry = pi+2;
             % p1 = pi/total_bdry ~ 0.611 ~ 0.6
@@ -205,9 +199,6 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             % d2x = -x;
             % d2x(:,t >= pi) = zeros(2,length(t(t >= pi)));
             len = (theta+2)*r;
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))
         case 'rectangle'
             ab = varargin{1}; 
             a1 = ab(1); b1 = ab(2);
@@ -260,9 +251,6 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             dx = [dx1,dx2,dx3,dx4];
             d2x = [d2x1,d2x2,d2x3,d2x4];
             
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))
         case 'tri'
             ab = varargin{1}; 
             a1 = ab(1); a2 = ab(2); b2 = ab(3);
@@ -331,10 +319,6 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             dx = [dx1,dx2,dx3];
             d2x = [d2x1,d2x2,d2x3];
             
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))
-
         case 'l'
             ab = varargin{1}; 
             a1 = ab(1); b1 = ab(2); 
@@ -393,10 +377,43 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             end
 
             end
+        case 'regpoly'
+            ab = varargin{1}; 
+            pieces = ab(1); sl = ab(2);
+            ang = 2*pi/pieces; ang1 = pi/2 - ang/2;
+            rad = sl/2/cos(ang1);
+            angs = ang*(0:pieces-1);
+            pts = rad*[cos(angs); sin(angs)]';
+            pts = [pts; pts(1,:)];
+            lens = sl+zeros(1,pieces);
+            len = sum(lens);            
+            ratios = lens/len;
+            if rem(tp/2,pieces) ~=0
+                disp("N not divisible by number of pieces")
+            end    
+            points_per_piece = tp/pieces+zeros(1,pieces);%ratios*tp;
+            
+            indices_end = cumsum(points_per_piece);
+            indices_begin = [1 indices_end(1:end-1)+1];
+            indices = [indices_begin',indices_end'];
 
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))    
+            dts = (b-a)./(points_per_piece); %cutoff = 0.1; 
+            ts = arrayfun(@(x) a:x:b,dts,'UniformOutput',false); % 2N+1 points
+            ts1 = ts; ts = cellfun(@(x) w(x),ts1,'UniformOutput',false);
+            Dws = cellfun(@(x)dw(x),ts1,'UniformOutput',false);%dw(t1); 
+
+            for l = 1:pieces
+            sp = pts(l,:); ep = pts(l+1,:);     
+            t = ts{l};
+            [x1, dx1, d2x1] = slantline(t,sp(1),ep(1),sp(2),ep(2)); 
+            
+            if l == 1
+            x = x1; dx = dx1; d2x = d2x1;
+            else
+            x = [x,x1]; dx = [dx,dx1]; d2x = [d2x,d2x1];
+            end
+
+            end
         case 'polygon'
             pts = varargin{1}; 
             pieces = size(pts,1);
@@ -447,10 +464,6 @@ function [x,dx,d2x,nx,len,dom_area,ts,ts1,Dws,indices,points_per_piece,pieces] =
             end
 
             end
-
-            % SHOULD MATCH len
-            % 2*pi/length(t)*sum(sqrt(dx(1,:).^2+dx(2,:).^2)); 
-            % 2*pi/(length(t)-1)*sum(sqrt(dx(1,1:end/2).^2+dx(2,1:end/2).^2))+2*pi/(length(t)-1)*sum(sqrt(dx(1,end/2+1:end).^2+dx(2,end/2+1:end).^2))    
         
         case 'tear'
             pieces = 1; %ts = cell(1,pieces);
