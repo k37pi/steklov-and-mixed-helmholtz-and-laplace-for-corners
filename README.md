@@ -2,7 +2,7 @@
 This Steklov-Helmholtz (and Laplace) code for corners includes 14 files. The 2 main files to use are listed in items 1 and 2.
 
 1. **corner_inputs.m** : The user selects the number of quadrature points, wave number, domain (8 available) and the polynomial mesh degree.
-   - *polygon_points_clicker.m* is a graphical input script to create a polygon by clicking points on as empty figure.
+   - *polygon_points_clicker.m* is a graphical input script to create a polygon by clicking points on an empty figure.
    - *poly_points.csv* is a sample of my attempt at making a star.
  
 2. **SH_corners.m** : This script uses inputs from **corner_inputs.m** and solves the Steklov eigenvalue problems (Helmholtz and Laplace). 
