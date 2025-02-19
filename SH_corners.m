@@ -45,13 +45,11 @@ evs_sl(inds) = [];
 eden_sl = eden_sl(:,setdiff(1:(2*N-length(remove)),inds));
 evecs_sl = evecs_sl(:,setdiff(1:(2*N-length(remove)),inds));
 else
-
 inds = find(abs(evs_sh)> 1e4);
 evs_sh(inds) = [];
 eden_sh = eden_sh(:,setdiff(1:(2*N-length(remove)),inds));
 evecs_sh = evecs_sh(:,setdiff(1:(2*N-length(remove)),inds));
 
-evs_sh(abs(evs_sh) > 1e4) = [];
 inds = find(abs(evs_sl)> 1e4);
 evs_sl(inds) = [];
 eden_sl = eden_sl(:,setdiff(1:(2*N-length(remove)),inds));
